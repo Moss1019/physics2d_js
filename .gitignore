@@ -2,6 +2,7 @@
 /physics.xcodeproj
 
 *.xcodeproj
+*.xcworkspace
 
 .DS_Store
 

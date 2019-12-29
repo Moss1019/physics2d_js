@@ -14,10 +14,5 @@ gEngine.Core = (function() {
         mContext: mContext
     };
 
-    console.log(mPublic);
-
     return mPublic;
 }());
-
-console.log(gEngine);
-console.log(gEngine.Core);
