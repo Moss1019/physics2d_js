@@ -1,0 +1,79 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXFileReference section */
+		EA25A75323B8AC6B0090B18A /* Lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Lib; sourceTree = "<group>"; };
+		EA25A75423B8AC6B0090B18A /* UserControl.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = UserControl.js; sourceTree = "<group>"; };
+		EA25A75523B8AC6B0090B18A /* EngineCore */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EngineCore; sourceTree = "<group>"; };
+		EA25A75623B8AC6B0090B18A /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		EA25A74C23B8ABEA0090B18A = {
+			isa = PBXGroup;
+			children = (
+				EA25A75523B8AC6B0090B18A /* EngineCore */,
+				EA25A75623B8AC6B0090B18A /* index.html */,
+				EA25A75323B8AC6B0090B18A /* Lib */,
+				EA25A75423B8AC6B0090B18A /* UserControl.js */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		EA25A74D23B8ABEA0090B18A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1130;
+			};
+			buildConfigurationList = EA25A75023B8ABEB0090B18A /* Build configuration list for PBXProject "physics" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EA25A74C23B8ABEA0090B18A;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		EA25A75123B8ABEB0090B18A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		EA25A75223B8ABEB0090B18A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EA25A75023B8ABEB0090B18A /* Build configuration list for PBXProject "physics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA25A75123B8ABEB0090B18A /* Debug */,
+				EA25A75223B8ABEB0090B18A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EA25A74D23B8ABEA0090B18A /* Project object */;
+}
