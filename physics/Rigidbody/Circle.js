@@ -6,7 +6,7 @@ var Circle = function(center, radius) {
     this.mStartPoint = new Vec2(center.x, center.y - radius);
 }
 
-var prototype = Objec.create(RigidShape.prototype);
+var prototype = Object.create(RigidShape.prototype);
 prototype.constructor = Circle;
 Circle.prototype = prototype;
 

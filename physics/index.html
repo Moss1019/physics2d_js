@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Physics engine</title>
 </head>
-<body onkeydown="return userControl(event);">
+<body onkeydown="return userControl(event);" onload=" var game = new MyGame(); gEngine.Core.initializeEngineCore(); console.log('running');">
     <table style="padding: 2px;"V>
         <tr>
             <td>
@@ -16,11 +16,20 @@
                     </canvas>
                 </div>
             </td>
+            <td>
+               <div id="uiEchoString">
+                   
+               </div>
+            </td>
         </tr>
     </table>
 
     <script type="text/javascript" src="EngineCore/Core.js"></script>
     <script type="text/javascript" src="UserControl.js"></script>
     <script type="text/javascript" src="Lib/Vec2.js"></script>
+    <script type="text/javascript" src="RigidBody/RigidShape.js"></script>
+    <script type="text/javascript" src="RigidBody/Rectangle.js"></script>
+    <script type="text/javascript" src="RigidBody/Circle.js"></script>
+    <script type="text/javascript" src="MyGame.js"></script>
 </body>
 </html>

@@ -8,6 +8,12 @@ gEngine.Core = (function() {
     mCanvas.width = mWidth;
     mCanvas.height = mHeight;
                 
+    var mCurrentTime, mElapsedTime, mPreviousTime = Date.now(), mLagTime = 0;
+    var kFPS = 30;
+    var kFrameRate = 1 / kFPS;
+    var mUpdateIntervalsInSeconds = kFrameRate;
+    var kMPF = 1000 * kFrameRate;
+                
     var mAllObjects = [];
 
     var updateUIEcho = function () {
@@ -25,11 +31,25 @@ gEngine.Core = (function() {
                 mAllObjects[i].draw(mContext);
             }
     };
+                
+                var update() {
+                    var i;
+                for(i = 0; i < mAllObjects.length; ++i) {
+                    mAllObjects[i].update(mContext);
+                }
+                }
 
     var runGameLoop = function() {
         requestAnimationFrame(function () {
                                 runGameLoop();
                               });
+        mCurrentTime = Date.now();
+        mElapsedTime = mCurrentTime - mPreviousTime;
+        mLagTime += mElapsedTime;
+        while(mLagTime >= kMPF) {
+            mLagTime -= kMPF;
+            update();
+        }
         updateUIEcho();
         draw();
     };

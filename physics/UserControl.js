@@ -25,7 +25,7 @@ function userControl(event) {
         }
     }
     
-    if(key === 38) {
+    if(keycode === 38) {
         if(gObjectNum > 0) {
             --gObjectNum;
         }
