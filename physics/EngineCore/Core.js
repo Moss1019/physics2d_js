@@ -11,7 +11,6 @@ gEngine.Core = (function() {
     var mCurrentTime, mElapsedTime, mPreviousTime = Date.now(), mLagTime = 0;
     var kFPS = 30;
     var kFrameRate = 1 / kFPS;
-    var mUpdateIntervalsInSeconds = kFrameRate;
     var kMPF = 1000 * kFrameRate;
                 
     var mAllObjects = [];
@@ -32,12 +31,12 @@ gEngine.Core = (function() {
             }
     };
                 
-                var update() {
-                    var i;
-                for(i = 0; i < mAllObjects.length; ++i) {
-                    mAllObjects[i].update(mContext);
-                }
-                }
+    var update = function() {
+        var i;
+        for(i = 0; i < mAllObjects.length; ++i) {
+            mAllObjects[i].update();
+        }
+    }
 
     var runGameLoop = function() {
         requestAnimationFrame(function () {
