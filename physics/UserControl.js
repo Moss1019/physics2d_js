@@ -1,3 +1,6 @@
+
+var gObjectNum = 0;
+
 function userControl(event) {
     var keycode;
     if(window.event) {
@@ -6,18 +9,31 @@ function userControl(event) {
         keycode = event.which
     }
 
-    console.log(gEngine);
-
     var width = gEngine.Core.mWidth;
     var height = gEngine.Core.mHeight;
     var context = gEngine.Core.mContext;
     
     if(keycode === 70) {
-        context.strokeRect(Math.random() * width * 0.80, Math.random() * height * 0.80, Math.random() * 30 + 10, Math.random() * 30 + 10);
-    } else if(keycode === 71) {
-        context.beginPath();
-        context.arc(Math.random() * width * 0.80, Math.random() * height * 0.80, Math.random() * 30 + 10, 0, Math.PI * 2, true);
-        context.closePath();
-        context.stroke();
+        var r1 = new Rectangle(new Vec2(Math.random() * width * 0.80, Math.random() * height * 0.80), Math.random() * 30 + 10, Math.random() * 30 + 10);
+    } else if (keycode === 71) {
+        var c1 = new Circle(new Vec2(Math.random() * width * 0.80, Math.random() * height * 0.80), Math.random() * 10 + 20);
     }
+    
+    if (keycode >= 48 && keycode <= 57) {
+        if(keycode - 48 < gEngine.Core.mAllObjects.length) {
+            gObjectNum = keycode - 48;
+        }
+    }
+    
+    if(key === 38) {
+        if(gObjectNum > 0) {
+            --gObjectNum;
+        }
+    } else if(keycode === 40) {
+        if(gObjectNum < gEngine.Core.mAllObjects.length - 1) {
+            ++gObjectNum;
+        }
+    }
+    
+    
 }
