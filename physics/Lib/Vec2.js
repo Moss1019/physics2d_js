@@ -45,4 +45,3 @@ Vec2.prototype.normalize = function() {
 Vec2.prototype.length = function () {
     return Math.sqrt(this.x * this.x + this.y * this.y);
 }
-

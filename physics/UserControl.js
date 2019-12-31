@@ -14,9 +14,9 @@ function userControl(event) {
     var context = gEngine.Core.mContext;
     
     if (keycode === 70) {
-        var r1 = new Rectangle(new Vec2(Math.random() * width * 0.80, Math.random() * height * 0.80), Math.random() * 30 + 10, Math.random() * 30 + 10, true);
+        var r1 = new Rectangle(new Vec2(gEngine.Core.mWidth / 2, gEngine.Core.mHeight / 2), Math.random() * 30 + 10, Math.random() * 30 + 10, Math.random(), Math.random());
     } else if (keycode === 71) {
-        var c1 = new Circle(new Vec2(Math.random() * width * 0.80, Math.random() * height * 0.80), Math.random() * 10 + 20, true);
+        var c1 = new Circle(new Vec2(gEngine.Core.mWidth / 2, gEngine.Core.mHeight / 2), Math.random() * 10 + 20, Math.random(), Math.random());
     }
     
     if (keycode >= 48 && keycode <= 57) {
@@ -52,11 +52,34 @@ function userControl(event) {
     }
 
     if (keycode === 72) {
-        gEngine.Core.mAllObjects[gObjectNum].mFix = !gEngine.Core.mAllObjects[gObjectNum].mFix;
+        gEngine.Core.mMovement = !gEngine.Core.mMovement;
     }
 
     if (keycode === 82) {
         gEngine.Core.mAllObjects = gEngine.Core.mAllObjects.splice(4, gEngine.Core.mAllObjects.length);
         gObjectNum = 0;
+    }
+    
+    if (keycode === 73) {
+        gEngine.Core.mAllObjects[gObjectNum].mVelocity.y -= 1;
+    } else if (keycode === 75) {
+        gEngine.Core.mAllObjects[gObjectNum].mVelocity.y += 1;
+    }
+    if (keycode === 74) {
+        gEngine.Core.mAllObjects[gObjectNum].mVelocity.x -= 1;
+    } else if (keycode === 76) {
+        gEngine.Core.mAllObjects[gObjectNum].mVelocity.x += 1;
+    }
+    
+    if (keycode === 85) {
+        gEngine.Core.mAllObjects[gObjectNum].mAngularVelocity -= 0.1;
+    } else if (keycode === 79) {
+        gEngine.Core.mAllObjects[gObjectNum].mAngularVelocity += 0.1;
+    }
+    
+    if (keycode === 90) {
+        gEngine.Core.mAllObjects[gObjectNum].updateMass(-1);
+    } else if (keycode === 88) {
+        gEngine.Core.mAllObjects[gObjectNum].updateMass(1);
     }
 }

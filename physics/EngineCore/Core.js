@@ -12,11 +12,15 @@ gEngine.Core = (function() {
     var kFPS = 30;
     var kFrameRate = 1 / kFPS;
     var kMPF = 1000 * kFrameRate;
+                var mUpdateIntervalInSecods = kFrameRate;
                 
     var mAllObjects = [];
+                
+                var mGravity = new Vec2(0, 2.8);
+                var mMovement = false;
 
     var updateUIEcho = function () {
-        document.getElementById('uiEchoString').innerHTML = `<p>Selected obj: ID: ${gObjectNum}</p>`;
+        document.getElementById('uiEchoString').innerHTML = `<p>Selected obj: ID: ${gObjectNum}</p><p>Center: ${gEngine.Core.mAllObjects[gObjectNum].mCenter.x}, ${gEngine.Core.mAllObjects[gObjectNum].mCenter.y}</p><p>Angle: ${gEngine.Core.mAllObjects[gObjectNum].mAngle}</p><hr /><p>${gEngine.Core.mAllObjects[gObjectNum].mVelocity.x} ${gEngine.Core.mAllObjects[gObjectNum].mVelocity.y}</p>`;
     };
 
     var draw = function() {
@@ -44,13 +48,14 @@ gEngine.Core = (function() {
                               });
         mCurrentTime = Date.now();
         mElapsedTime = mCurrentTime - mPreviousTime;
-        mLagTime += mElapsedTime;
-        while(mLagTime >= kMPF) {
-            mLagTime -= kMPF;
-            update();
-        }
+        mLagTime = mElapsedTime;
         updateUIEcho();
         draw();
+        while(mLagTime >= kMPF) {
+            mLagTime -= kMPF;
+            gEngine.Physics.collision();
+            update();
+        }
     };
                 
     var initializeEngineCore = function() {
@@ -63,6 +68,9 @@ gEngine.Core = (function() {
         mHeight: mHeight,
         mContext: mContext,
         mAllObjects: mAllObjects,
+                mGravity: mGravity,
+                mMovement: mMovement,
+                mUpdateIntervalInSecods:mUpdateIntervalInSecods,
         initializeEngineCore: initializeEngineCore
     };
 

@@ -1,10 +1,11 @@
 
-var Circle = function(center, radius, fix) {
-    RigidShape.call(this, center);
+var Circle = function(center, radius, mass, friction, restitution) {
+    RigidShape.call(this, center, mass, friction, restitution);
     this.mType = 'Circle';
     this.mRadius = radius;
     this.mStartPoint = new Vec2(center.x, center.y - radius);
-    this.mFix = fix;
+    this.mBoundRadius = radius;
+    this.updateInertia();
 }
 
 var prototype = Object.create(RigidShape.prototype);
@@ -29,4 +30,12 @@ Circle.prototype.rotate = function (angle) {
     this.mAngle += angle;
     this.mStartPoint = this.mStartPoint.rotate(this.mCenter, angle);
     return this;
+}
+
+Circle.prototype.updateInertia = function () {
+    if (this.mInvMass === 0) {
+        this.mInertia = 0;
+    } else {
+        this.mInertia = (1 / this.mInvMass) * (this.mRadius * this.mRadius) / 12;
+    }
 }
