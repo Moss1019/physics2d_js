@@ -1,5 +1,5 @@
 var gEngine = gEngine || {};
-// initialize the variable while ensuring it is not redefined
+
 gEngine.Core = (function () {
     var mCanvas, mContext, mWidth = 800, mHeight = 450;
     mCanvas = document.getElementById('canvas');

@@ -1,14 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*jslint node: true, vars: true, evil: true, bitwise: true */
-"use strict";
-
-/* global mAllObjects, dt, gEngine */
-
 function RigidShape(center, mass, friction, restitution) {
 
     this.mCenter = center;
@@ -39,12 +28,8 @@ function RigidShape(center, mass, friction, restitution) {
     } else {
         this.mAcceleration = new Vec2(0, 0);
     }
-
-    //angle
     this.mAngle = 0;
 
-    //negetive-- clockwise
-    //postive-- counterclockwise
     this.mAngularVelocity = 0;
 
     this.mAngularAcceleration = 0;
@@ -77,16 +62,12 @@ RigidShape.prototype.updateMass = function (delta) {
 };
 
 RigidShape.prototype.updateInertia = function () {
-    // subclass must define this.
-    // must work with inverted this.mInvMass
 };
 
 RigidShape.prototype.update = function () {
     if (gEngine.Core.mMovement) {
         var dt = gEngine.Core.mUpdateIntervalInSeconds;
-        //v += a*t
         this.mVelocity = this.mVelocity.add(this.mAcceleration.scale(dt));
-        //s += v*t 
         this.move(this.mVelocity.scale(dt));
 
         this.mAngularVelocity += this.mAngularAcceleration * dt;
@@ -99,7 +80,6 @@ RigidShape.prototype.boundTest = function (otherShape) {
     var rSum = this.mBoundRadius + otherShape.mBoundRadius;
     var dist = vFrom1to2.length();
     if (dist > rSum) {
-        //not overlapping
         return false;
     }
     return true;

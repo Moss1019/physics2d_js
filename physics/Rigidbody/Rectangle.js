@@ -1,11 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/*jslint node: true, vars: true, evil: true, bitwise: true */
-"use strict";
-/* global RigidShape */
 
 var Rectangle = function (center, width, height, mass, friction, restitution) {
 
@@ -17,14 +9,11 @@ var Rectangle = function (center, width, height, mass, friction, restitution) {
     this.mVertex = [];
     this.mFaceNormal = [];
 
-    //0--TopLeft;1--TopRight;2--BottomRight;3--BottomLeft
     this.mVertex[0] = new Vec2(center.x - width / 2, center.y - height / 2);
     this.mVertex[1] = new Vec2(center.x + width / 2, center.y - height / 2);
     this.mVertex[2] = new Vec2(center.x + width / 2, center.y + height / 2);
     this.mVertex[3] = new Vec2(center.x - width / 2, center.y + height / 2);
 
-    //0--Top;1--Right;2--Bottom;3--Left
-    //mFaceNormal is normal of face toward outside of rectangle
     this.mFaceNormal[0] = this.mVertex[1].subtract(this.mVertex[2]);
     this.mFaceNormal[0] = this.mFaceNormal[0].normalize();
     this.mFaceNormal[1] = this.mVertex[2].subtract(this.mVertex[3]);
@@ -78,11 +67,9 @@ Rectangle.prototype.draw = function (context) {
 };
 
 Rectangle.prototype.updateInertia = function () {
-    // Expect this.mInvMass to be already inverted!
     if (this.mInvMass === 0) {
         this.mInertia = 0;
     } else {
-        //inertia=mass*width^2+height^2
         this.mInertia = (1 / this.mInvMass) * (this.mWidth * this.mWidth + this.mHeight * this.mHeight) / 12;
         this.mInertia = 1 / this.mInertia;
     }
