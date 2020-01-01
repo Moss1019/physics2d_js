@@ -35,7 +35,7 @@ gEngine.Core = (function () {
     var update = function () {
         var i;
         for (i = 0; i < mAllObjects.length; i++) {
-            mAllObjects[i].update(mContext);
+            mAllObjects[i].update();
         }
     };
     var runGameLoop = function () {

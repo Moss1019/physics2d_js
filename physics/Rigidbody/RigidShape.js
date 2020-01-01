@@ -1,4 +1,3 @@
-
 function RigidShape(center, mass, friction, restitution) {
 
     this.mCenter = center;
@@ -29,7 +28,6 @@ function RigidShape(center, mass, friction, restitution) {
     } else {
         this.mAcceleration = new Vec2(0, 0);
     }
-
     this.mAngle = 0;
 
     this.mAngularVelocity = 0;
