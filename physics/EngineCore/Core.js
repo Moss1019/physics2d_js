@@ -1,78 +1,73 @@
-
 var gEngine = gEngine || {};
-
-gEngine.Core = (function() {
+// initialize the variable while ensuring it is not redefined
+gEngine.Core = (function () {
     var mCanvas, mContext, mWidth = 800, mHeight = 450;
     mCanvas = document.getElementById('canvas');
     mContext = mCanvas.getContext('2d');
-    mCanvas.width = mWidth;
     mCanvas.height = mHeight;
-                
+    mCanvas.width = mWidth;
+
+    var mGravity = new Vec2(0, 10);
+    var mMovement = false;
+
     var mCurrentTime, mElapsedTime, mPreviousTime = Date.now(), mLagTime = 0;
     var kFPS = 30;
-    var kFrameRate = 1 / kFPS;
-    var kMPF = 1000 * kFrameRate;
-                var mUpdateIntervalInSecods = kFrameRate;
-                
+    var kFrameTime = 1 / kFPS;
+    var mUpdateIntervalInSeconds = kFrameTime;
+    var kMPF = 1000 * kFrameTime;
     var mAllObjects = [];
-                
-                var mGravity = new Vec2(0, 2.8);
-                var mMovement = false;
 
     var updateUIEcho = function () {
-        document.getElementById('uiEchoString').innerHTML = `<p>Selected obj: ID: ${gObjectNum}</p><p>Center: ${gEngine.Core.mAllObjects[gObjectNum].mCenter.x}, ${gEngine.Core.mAllObjects[gObjectNum].mCenter.y}</p><p>Angle: ${gEngine.Core.mAllObjects[gObjectNum].mAngle}</p><hr /><p>${gEngine.Core.mAllObjects[gObjectNum].mVelocity.x} ${gEngine.Core.mAllObjects[gObjectNum].mVelocity.y}</p>`;
+        document.getElementById("uiEchoString").innerHTML =
+                "";
     };
-
-    var draw = function() {
+    var draw = function () {
         mContext.clearRect(0, 0, mWidth, mHeight);
         var i;
-            for(i = 0; i < mAllObjects.length; ++i) {
-                mContext.strokeStyle = 'blue';
-                if(i === gObjectNum) {
-                    mContext.strokeStyle = 'red';
-                }
-                mAllObjects[i].draw(mContext);
+        for (i = 0; i < mAllObjects.length; i++) {
+            mContext.strokeStyle = 'blue';
+            if (i === gObjectNum) {
+                mContext.strokeStyle = 'red';
             }
-    };
-                
-    var update = function() {
-        var i;
-        for(i = 0; i < mAllObjects.length; ++i) {
-            mAllObjects[i].update();
+            mAllObjects[i].draw(mContext);
         }
-    }
-
-    var runGameLoop = function() {
+    };
+    var update = function () {
+        var i;
+        for (i = 0; i < mAllObjects.length; i++) {
+            mAllObjects[i].update(mContext);
+        }
+    };
+    var runGameLoop = function () {
         requestAnimationFrame(function () {
-                                runGameLoop();
-                              });
+            runGameLoop();
+        });
+
         mCurrentTime = Date.now();
         mElapsedTime = mCurrentTime - mPreviousTime;
-        mLagTime = mElapsedTime;
+        mPreviousTime = mCurrentTime;
+        mLagTime += mElapsedTime;
+
         updateUIEcho();
         draw();
-        while(mLagTime >= kMPF) {
+        while (mLagTime >= kMPF) {
             mLagTime -= kMPF;
             gEngine.Physics.collision();
             update();
         }
     };
-                
-    var initializeEngineCore = function() {
+    var initializeEngineCore = function () {
         runGameLoop();
     };
-    
-
     var mPublic = {
+        initializeEngineCore: initializeEngineCore,
+        mAllObjects: mAllObjects,
         mWidth: mWidth,
         mHeight: mHeight,
         mContext: mContext,
-        mAllObjects: mAllObjects,
-                mGravity: mGravity,
-                mMovement: mMovement,
-                mUpdateIntervalInSecods:mUpdateIntervalInSecods,
-        initializeEngineCore: initializeEngineCore
+        mGravity: mGravity,
+        mUpdateIntervalInSeconds: mUpdateIntervalInSeconds,
+        mMovement: mMovement
     };
-
     return mPublic;
 }());

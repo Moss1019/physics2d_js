@@ -1,40 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Physics engine</title>
-</head>
-<body onkeydown="return userControl(event);" onload=" var game = new MyGame(); gEngine.Core.initializeEngineCore(); console.log('running');">
-    <table style="padding: 2px;"V>
-        <tr>
-            <td>
-                <div>
-                    <canvas id="canvas">
-                        
-                    </canvas>
-                </div>
-            </td>
-            <td>
-               <div id="uiEchoString">
-                   
-               </div>
-            </td>
-        </tr>
-    </table>
-    
-    <script type="text/javascript" src="Lib/Vec2.js"></script>
-    <script type="text/javascript" src="Lib/CollisionInfo.js"></script>
-    <script type="text/javascript" src="Lib/TmpSupport.js"></script>
-    <script type="text/javascript" src="RigidBody/RigidShape.js"></script>
-    <script type="text/javascript" src="EngineCore/Core.js"></script>
-    <script type="text/javascript" src="EngineCore/Physics.js"></script>
-    <script type="text/javascript" src="UserControl.js"></script>
-    <script type="text/javascript" src="RigidBody/Rectangle.js"></script>
-    <script type="text/javascript" src="RigidBody/Rectangle_collision.js"></script>
-    <script type="text/javascript" src="RigidBody/Circle.js"></script>
-    <script type="text/javascript" src="RigidBody/Circle_collision.js"></script>
-    <script type="text/javascript" src="MyGame.js"></script>
-</body>
+<!doctype html>
+<html>
+    <head>   
+        <title>PhysicsEngine</title>
+        <link rel ="icon" type ="image/x-icon" href="./favicon.jpg">
+    </head>
+    <body onkeydown="return userControl(event);" 
+          onload="
+            var game = new MyGame();
+            gEngine.Core.initializeEngineCore()">
+        
+        <table style="padding: 2px">
+            <tr>
+                <td> 
+                    <div>
+                        <canvas id="canvas"></canvas>    
+                    </div>
+                </td>
+                <td>
+                    <div id="uiEchoString">  </div>
+                </td>
+            </tr>
+        </table>
+        
+        
+        
+        
+        <script type="text/javascript" src="Lib/Vec2.js"></script>
+        <script type="text/javascript" src="Lib/CollisionInfo.js"></script>
+
+        <script type="text/javascript" src="RigidBody/RigidShape.js"></script>  
+        <script type="text/javascript" src="RigidBody/Circle.js"></script>  
+        <script type="text/javascript" src="RigidBody/Rectangle.js"></script>     
+        <script type="text/javascript" src="RigidBody/Circle_collision.js"></script>  
+        <script type="text/javascript" src="RigidBody/Rectangle_collision.js"></script>    
+        
+        <script type="text/javascript" src="EngineCore/Physics.js"></script>
+        <script type="text/javascript" src="EngineCore/Core.js"></script>
+
+        <script type="text/javascript" src="MyGame.js"></script>
+        <script type="text/javascript" src="UserControl.js"></script>
+
+    </body>
 </html>

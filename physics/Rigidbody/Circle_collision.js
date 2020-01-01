@@ -1,10 +1,11 @@
 
+
 Circle.prototype.collisionTest = function (otherShape, collisionInfo) {
     var status = false;
-    if (otherShape.mType === 'Circle') {
+    if (otherShape.mType === "Circle") {
         status = this.collidedCircCirc(this, otherShape, collisionInfo);
     } else {
-        status = false;
+        status = otherShape.collidedRectCirc(this, collisionInfo);
     }
     return status;
 };
@@ -27,4 +28,6 @@ Circle.prototype.collidedCircCirc = function (c1, c2, collisionInfo) {
             collisionInfo.setInfo(rSum, new Vec2(0, -1), c2.mCenter.add(new Vec2(0, c2.mRadius)));
         }
     }
+    return true;
 };
+
