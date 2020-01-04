@@ -4,7 +4,7 @@ const gk_gravity = new Vec2(0, 10);
 class Engine {
     constructor() {
         this.width = 800;
-        this.height = 800;
+        this.height = 600;
         this.canvas = document.getElementById('draw-space');
         this.context = this.canvas.getContext('2d');
         this.canvas.width = this.width;
@@ -26,27 +26,56 @@ class Engine {
 
         this.relaxationSteps = 15;
         this.positionCorrectionRate = 0.8;
+
+        this.spawnPoint = new Vec2(this.width / 2, 300);
     }
 
-    addGameObject = (newGO) => {
+    addGameObject(newGO) {
         this.gameObjects.push(newGO);
     }
 
-    draw = () => {
+    spawnNewGameObject() {
+        const newGO = new GameObject(this.spawnPoint, Math.random(), Math.random(), Math.random(), 
+        Math.random() * 100 + 10, Math.random() * 100 + 10);
+        this.addGameObject(newGO);
+    }
+
+    removeLastAddedGameObject() {
+        if (this.gameObjects.length === 4) {
+            return;
+        }
+        this.gameObjects.pop();
+    }
+
+    moveSpawnPoint(displacement) {
+        const newX = displacement.x + this.spawnPoint.x;
+        const newY = displacement.y + this.spawnPoint.y;
+        if (newX > 0 && newX < this.width && newY > 0 && newY < this.height) {
+            this.spawnPoint = this.spawnPoint.add(displacement);
+        }
+    }
+
+    draw() {
         this.context.clearRect(0, 0, this.width, this.height);
+        this.context.strokeStyle = 'red';
+        this.context.moveTo(this.spawnPoint.x, this.spawnPoint.y);
+        this.context.beginPath();
+        this.context.arc(this.spawnPoint.x, this.spawnPoint.y, 3, 0, Math.PI * 2, true);
+        this.context.closePath();
+        this.context.stroke();
+        this.context.strokeStyle ='blue';
         this.gameObjects.forEach((go, i) => {
-            this.context.strokeStyle = i === this.currentGameObject ? 'red' : 'blue';
             go.draw(this.context);
         });
     }
 
-    update = () => {
+    update() {
         this.gameObjects.forEach((go) => {
             go.update();
         })
     }
 
-    runGameLoop = () => {
+    runGameLoop() {
         requestAnimationFrame(() => {
             this.runGameLoop();
         });
@@ -62,7 +91,7 @@ class Engine {
         }
     }
 
-    positionalCorrection = (go1, go2, collisionInfo) => {
+    positionalCorrection(go1, go2, collisionInfo) {
         const m1 = go1.invMass;
         const m2 = go2.invMass;
         const scaleAmount = collisionInfo.depth / (m1 + m2) * this.positionCorrectionRate;
@@ -71,7 +100,7 @@ class Engine {
         go2.move(correctionAmount.scale(m2));
     }
 
-    resolveCollision = (go1, go2, colInfo) => {
+    resolveCollision(go1, go2, colInfo) {
         if (go1.invMass === 0 && go2.invMass === 0) {
             return;
         }
@@ -111,8 +140,8 @@ class Engine {
         
         const t = relativeVelocity.subtract(n.scale(relativeVelocity.dot(n))).normalize().scale(-1);
 
-        const r1CrossT = r1.cross(t);
-        const r2CrossT = r2.cross(t);
+        // const r1CrossT = r1.cross(t);
+        // const r2CrossT = r2.cross(t);
 
         // let jT = (-(1 + newRestitution) * relativeVelocity.dot(t) * newFriction) / (go1.invMass + go2.invMass + r1CrossT * r1CrossT * go1.inertia + r2CrossT * r2CrossT * go2.inertia);
         let jT = jN;
@@ -129,7 +158,7 @@ class Engine {
         go2.velocity = go2.velocity.add(impulse.scale(go2.invMass));
     }
 
-    physicsUpdate = () => {
+    physicsUpdate() {
         const colInfo = new CollisionInfo();
         for (let k = 0; k < this.relaxationSteps; ++k) {
             for (let i = 0; i < this.gameObjects.length; ++i) {

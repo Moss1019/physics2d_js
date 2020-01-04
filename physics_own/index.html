@@ -1,20 +1,32 @@
-
 <!doctype html>
 <html>
+
 <head>
     <title>
         own physics engine impl
     </title>
-</head>
-<body onload="g_engine.runGameLoop()">
-    <div>
-        <canvas id="draw-space"></canvas>
-    </div>
-    <div>
-        <h3>information</h3>
-    </div>
-    <div>
 
+    <link rel="stylesheet" href="styles/general.css" />
+</head>
+
+<body onload="g_engine.runGameLoop()" onkeydown="return hanleInput(event)">
+    <div id="physics-header">
+        <h2 class="justify-center align-center margin-null fill-height">Simple physics simulation</h2>
+    </div>
+
+    <div id="physics-content">
+        <div>
+            <canvas id="draw-space"></canvas>
+        </div>
+        <div>
+            q - spawn item, e - remove last spawned item, w a s d - move spawn point
+        </div>
+    </div>
+
+    <div id="physics-footer">
+        <small class="justify-center align-center margin-null fill-height">
+            mossonthetree 2020
+        </small>
     </div>
 
     <script src="./Lib/Vec2.js"></script>
@@ -28,4 +40,5 @@
     <script src="./UserControl.js"></script>
 
 </body>
+
 </html>

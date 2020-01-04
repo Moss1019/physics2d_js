@@ -22,6 +22,7 @@ class GameObject {
         this.acceleration = this.invMass !== 0 ? gk_gravity : new Vec2(0, 0);
         this.angularVelocity = 0;
         this.angularAcceleration = 0;
+        this.maxVelocity = 60;
 
         this.drag = 0.1;
 
@@ -41,23 +42,26 @@ class GameObject {
         this.updateInertia();
     }
 
-    update = () => {
+    update() {
         const dt = g_engine.updateIntervalsInSecods;
         this.velocity = this.velocity.add(this.acceleration.scale(dt));
+        if (this.velocity.length() > this.maxVelocity) {
+            this.velocity = this.velocity.normalize().scale(this.maxVelocity);
+        }
         this.move(this.velocity.scale(dt));
 
         this.angularVelocity += this.angularAcceleration * dt;
         this.rotate(this.angularVelocity * dt);
     }
 
-    boundTest = (other) => {
+    boundTest(other) {
         const vector1to2 = other.center.subtract(this.center);
         const radiusSum = this.boundingRadius + other.boundingRadius;
         const distance = vector1to2.length();
         return radiusSum > distance;
     }
 
-    findSupportPoint = (dir, pointOnEdge) => {
+    findSupportPoint(dir, pointOnEdge) {
         let vectorToEdge = null;
         let projection = null;
         g_tmpSupport.supportPoint = null;
@@ -72,7 +76,7 @@ class GameObject {
         });
     }
 
-    findAxisLeastPenetration = (r, colInfo) => {
+    findAxisLeastPenetration(r, colInfo) {
         let n = null;
         let supportPoint = null;
         let bestDistance = 999999;
@@ -97,7 +101,7 @@ class GameObject {
         return hasSupport;
     }
 
-    collisionTest = (go, colInfo) => {
+    collisionTest(go, colInfo) {
         const s1 = this.findAxisLeastPenetration(go, g_colInfo1);
         if (s1) {
             const s2 = go.findAxisLeastPenetration(this, g_colInfo2);
@@ -114,22 +118,28 @@ class GameObject {
         return false;
     }
 
-    draw = (ctx) => {
+    draw(ctx) {
         ctx.save();
         ctx.translate(this.verts[0].x, this.verts[0].y);
         ctx.rotate(this.angle);
         ctx.strokeRect(0, 0, this.width, this.height);
         ctx.restore();
+        const v = this.velocity.length();
+        if (v === 0) {
+            return;
+        }
+        ctx.font = '10px serif';
+        ctx.fillText(`${Math.round(v, 2)}`, this.center.x, this.center.y);
     }
 
-    move = (displacement) => {
+    move(displacement) {
         for (let i = 0; i < this.verts.length; ++i) {
             this.verts[i] = this.verts[i].add(displacement);
         }
         this.center = this.center.add(displacement);
     }
 
-    rotate = (angle) => {
+    rotate(angle) {
         this.angle += angle;
         for (let i = 0; i < this.verts.length; ++i) {
             this.verts[i] = this.verts[i].rotate(this.center, angle);
@@ -142,7 +152,7 @@ class GameObject {
         ];
     }
 
-    updateInertia = () => {
+    updateInertia() {
         if (this.invMass === 0) {
             this.inertia = 0;
         } else {

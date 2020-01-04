@@ -1,0 +1,45 @@
+
+body {
+  margin: 0;
+}
+
+:root {
+  --color-util: #81ffa7;
+}
+
+#physics-header,
+#physics-footer {
+  height: 10vh;
+  background-color: var(--color-util);
+}
+
+#physics-content {
+  min-height: 80vh;
+  text-align: center;
+}
+
+/* with and height */
+
+.fill-height {
+  height: 100%;
+}
+
+/* flex box */
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+  background-color: #f0f8ff;
+}
+
+/* margin and padding */
+
+.margin-null {
+  margin: 0;
+}
+
