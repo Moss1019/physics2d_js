@@ -2,9 +2,8 @@
 a simple physics simulation in 2D
 
 ## viewing the output
-the code in the 'physics_own' directory has been tested on Google Chrome and Mozilla Firefox.
-To run it in Safari, it needs to be transpiled first
-Babel is used for transpiling the code and two build scripts are included. A shell script and a Batch script
+the code in the 'physics_own' directory has been tested on Google Chrome and Mozilla Firefox, and Safari.
+Babel is used to transpile the code to work on older browsers, the included build scripts run the npm command to transpile, as well as copy the index.html and stylesheets over the the transpile destination folder
 
 - npm i  -> to install dependencies
 - ./build.sh -> on Linux, it may be required to change the permissions to allow execution first
